@@ -10,25 +10,15 @@ import { registerSoundfonts } from '@strudel/soundfonts';
 import { stranger_tune } from './tunes';
 import console_monkey_patch, { getD3Data } from './console-monkey-patch';
 import Mute from './components/Mute';
-import { Proc } from './Process';
+import { Proc, ProcAndPlay } from './Process';
 import Button from './components/Button';
-
-let globalEditor = null;
-
-const handleD3Data = (event) => {
-    console.log(event.detail);
-};
-
-export function ProcAndPlay() {
-    if (globalEditor != null && globalEditor.repl.state.started == true) {
-        console.log(globalEditor);
-        Proc(globalEditor);
-        globalEditor.evaluate();
-    }
-}
+import Accordion from './components/Accordion';
+import handleD3Data from './D3';
 
 export default function StrudelDemo() {
     const hasRun = useRef(false);
+
+    let globalEditor = null;
 
     useEffect(() => {
         if (!hasRun.current) {
@@ -74,7 +64,7 @@ export default function StrudelDemo() {
             </div>
             <div className="navbar bg-dark p-2 text-center justify-content-center gap-2">
                 <Button action={() => Proc(globalEditor)}>Preprocess</Button>
-                <Button action={() => ProcAndPlay()}>Process & Play</Button>
+                <Button action={() => ProcAndPlay(globalEditor)}>Process & Play</Button>
                 <Button action={() => globalEditor.evaluate()}>Play</Button>
                 <Button action={() => globalEditor.stop()}>Stop</Button>
             </div>
@@ -87,13 +77,13 @@ export default function StrudelDemo() {
                         </div>
                         <div className="col-md-4">
                             <h3 className="form-label text-white">Control Panel</h3>
-                            <div>
-                                <label for="bpm" className="text-white form-label me-2">BPM</label>
-                                <input type="text" id="bpm" defaultValue={"140/60/4"} onInput={ProcAndPlay}></input>
-                            </div>
-                            <div>
+                            <Accordion title={"Tempo"}>
+                                <label for="bpm" className="text-white me-2">BPM</label>
+                                <input type="text" id="bpm" defaultValue={"140/60/4"} onInput={() => ProcAndPlay(globalEditor)}></input>
+                            </Accordion>
+                            <Accordion title={"Muting"}>
                                 <Mute />
-                            </div>
+                            </Accordion>
                         </div>
                     </div>
                     <div className="row">

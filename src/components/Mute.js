@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ProcAndPlay } from '../App';
+import { ProcAndPlay } from '../Process';
 
 const Mute = ({ }) => {
     const [isMuted, setState] = useState(false);

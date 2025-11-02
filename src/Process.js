@@ -6,6 +6,14 @@ export function Proc(globalEditor) {
     globalEditor.setCode(proc_text_replaced);
 }
 
+export function ProcAndPlay(globalEditor) {
+    if (globalEditor != null && globalEditor.repl.state.started == true) {
+        console.log(globalEditor);
+        Proc(globalEditor);
+        globalEditor.evaluate();
+    }
+}
+
 function ProcessText(match, ...args) {
     let replace = ""
     if (document.getElementById('flexRadioDefault2').checked) {
