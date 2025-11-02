@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StrudelMirror } from '@strudel/codemirror';
 import { evalScope } from '@strudel/core';
 import { drawPianoroll } from '@strudel/draw';
@@ -10,6 +10,7 @@ import { registerSoundfonts } from '@strudel/soundfonts';
 import { stranger_tune } from './tunes';
 import console_monkey_patch, { getD3Data } from './console-monkey-patch';
 import Mute from './components/Mute';
+import { Proc } from './Process';
 
 let globalEditor = null;
 
@@ -18,45 +19,25 @@ const handleD3Data = (event) => {
 };
 
 export function SetupButtons() {
-
     document.getElementById('play').addEventListener('click', () => globalEditor.evaluate());
     document.getElementById('stop').addEventListener('click', () => globalEditor.stop());
     document.getElementById('process').addEventListener('click', () => {
-        Proc()
-    }
-    )
+        Proc(globalEditor)
+    })
     document.getElementById('process_play').addEventListener('click', () => {
         if (globalEditor != null) {
-            Proc()
+            Proc(globalEditor)
             globalEditor.evaluate()
         }
-    }
-    )
+    })
 }
 
 export function ProcAndPlay() {
     if (globalEditor != null && globalEditor.repl.state.started == true) {
         console.log(globalEditor)
-        Proc()
+        Proc(globalEditor)
         globalEditor.evaluate();
     }
-}
-
-export function Proc() {
-
-    let proc_text = document.getElementById('proc').value
-    let proc_text_replaced = proc_text.replaceAll('<p1_Radio>', ProcessText);
-    //ProcessText(proc_text);
-    globalEditor.setCode(proc_text_replaced)
-}
-
-export function ProcessText(match, ...args) {
-    let replace = ""
-    if (document.getElementById('flexRadioDefault2').checked) {
-        replace = "_"
-    }
-
-    return replace
 }
 
 export default function StrudelDemo() {
@@ -96,20 +77,22 @@ export default function StrudelDemo() {
                 
             document.getElementById('proc').value = stranger_tune
             SetupButtons()
-            Proc()
+            Proc(globalEditor)
         }
 
     }, []);
 
     return (
         <div>
-            <h2>Strudel Demo</h2>
-            <main>
+            <div className="navbar navbar-dark bg-dark p-2 text-center">
+                <h2 className="text-white mx-auto mb-0">Strudel Demo</h2>
+            </div>
+            <main className="px-4 pt-4" style={{backgroundColor: "#3A3A3A"}}>
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
-                            <label htmlFor="exampleFormControlTextarea1" className="form-label">Text to preprocess:</label>
-                            <textarea className="form-control" rows="15" id="proc" ></textarea>
+                        <div className="col-md-8 p-0" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                            <label htmlFor="exampleFormControlTextarea1" className="form-label text-white">Text to preprocess:</label>
+                            <textarea className="form-control" rows="15" id="proc" style={{resize: "none"}}></textarea>
                         </div>
                         <div className="col-md-4">
                             <nav>
@@ -122,7 +105,7 @@ export default function StrudelDemo() {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                        <div className="col-md-8 p-0" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
                             <div id="editor" />
                             <div id="output" />
                         </div>
