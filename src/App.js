@@ -11,26 +11,13 @@ import { stranger_tune } from './tunes';
 import console_monkey_patch, { getD3Data } from './console-monkey-patch';
 import Mute from './components/Mute';
 import { Proc } from './Process';
+import Button from './components/Button';
 
 let globalEditor = null;
 
 const handleD3Data = (event) => {
     console.log(event.detail);
 };
-
-export function SetupButtons() {
-    document.getElementById('play').addEventListener('click', () => globalEditor.evaluate());
-    document.getElementById('stop').addEventListener('click', () => globalEditor.stop());
-    document.getElementById('process').addEventListener('click', () => {
-        Proc(globalEditor)
-    })
-    document.getElementById('process_play').addEventListener('click', () => {
-        if (globalEditor != null) {
-            Proc(globalEditor)
-            globalEditor.evaluate()
-        }
-    })
-}
 
 export function ProcAndPlay() {
     if (globalEditor != null && globalEditor.repl.state.started == true) {
@@ -76,10 +63,8 @@ export default function StrudelDemo() {
                 });
                 
             document.getElementById('proc').value = stranger_tune
-            SetupButtons()
             Proc(globalEditor)
         }
-
     }, []);
 
     return (
@@ -90,17 +75,17 @@ export default function StrudelDemo() {
             <main className="px-4 pt-4" style={{backgroundColor: "#3A3A3A"}}>
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-8 p-0" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                        <div className="col-md-8 p-0" style={{ maxHeight: '50vh', overflowY: 'auto'}}>
                             <label htmlFor="exampleFormControlTextarea1" className="form-label text-white">Text to preprocess:</label>
-                            <textarea className="form-control" rows="15" id="proc" style={{resize: "none"}}></textarea>
+                            <textarea className="form-control text-white" rows="15" id="proc" style={{resize: "none", backgroundColor: "#222"}}></textarea>
                         </div>
                         <div className="col-md-4">
                             <nav>
-                                <button id="process" className="btn btn-outline-primary">Preprocess</button>
-                                <button id="process_play" className="btn btn-outline-primary">Proc & Play</button>
+                                <Button action={() => Proc(globalEditor)}>Preprocess</Button>
+                                <Button action={() => ProcAndPlay()}>Process & Play</Button>
                                 <br />
-                                <button id="play" className="btn btn-outline-primary">Play</button>
-                                <button id="stop" className="btn btn-outline-primary">Stop</button>
+                                <Button action={() => globalEditor.evaluate()}>Play</Button>
+                                <Button action={() => globalEditor.stop()}>Stop</Button>
                             </nav>
                         </div>
                     </div>
