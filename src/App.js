@@ -21,8 +21,8 @@ const handleD3Data = (event) => {
 
 export function ProcAndPlay() {
     if (globalEditor != null && globalEditor.repl.state.started == true) {
-        console.log(globalEditor)
-        Proc(globalEditor)
+        console.log(globalEditor);
+        Proc(globalEditor);
         globalEditor.evaluate();
     }
 }
@@ -62,8 +62,8 @@ export default function StrudelDemo() {
                     },
                 });
                 
-            document.getElementById('proc').value = stranger_tune
-            Proc(globalEditor)
+            document.getElementById('proc').value = stranger_tune;
+            Proc(globalEditor);
         }
     }, []);
 
@@ -72,35 +72,41 @@ export default function StrudelDemo() {
             <div className="navbar navbar-dark bg-dark p-2 text-center">
                 <h2 className="text-white mx-auto mb-0">Strudel Demo</h2>
             </div>
+            <div className="navbar bg-dark p-2 text-center justify-content-center gap-2">
+                <Button action={() => Proc(globalEditor)}>Preprocess</Button>
+                <Button action={() => ProcAndPlay()}>Process & Play</Button>
+                <Button action={() => globalEditor.evaluate()}>Play</Button>
+                <Button action={() => globalEditor.stop()}>Stop</Button>
+            </div>
             <main className="px-4 pt-4" style={{backgroundColor: "#3A3A3A"}}>
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-8 p-0" style={{ maxHeight: '50vh', overflowY: 'auto'}}>
-                            <label htmlFor="exampleFormControlTextarea1" className="form-label text-white">Text to preprocess:</label>
+                        <div className="col-md-8 p-0" style={{ maxHeight: '50vh'}}>
+                            <h3 className="form-label text-white">Text to Preprocess:</h3>
                             <textarea className="form-control text-white" rows="15" id="proc" style={{resize: "none", backgroundColor: "#222"}}></textarea>
                         </div>
                         <div className="col-md-4">
-                            <nav>
-                                <Button action={() => Proc(globalEditor)}>Preprocess</Button>
-                                <Button action={() => ProcAndPlay()}>Process & Play</Button>
-                                <br />
-                                <Button action={() => globalEditor.evaluate()}>Play</Button>
-                                <Button action={() => globalEditor.stop()}>Stop</Button>
-                            </nav>
+                            <h3 className="form-label text-white">Control Panel</h3>
+                            <div>
+                                <label for="bpm" className="text-white form-label me-2">BPM</label>
+                                <input type="text" id="bpm" defaultValue={"140/60/4"} onInput={ProcAndPlay}></input>
+                            </div>
+                            <div>
+                                <Mute />
+                            </div>
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-8 p-0" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                        <div className="col-md-8 p-0" style={{ maxHeight: '42vh', overflowY: 'auto' }}>
                             <div id="editor" />
                             <div id="output" />
                         </div>
                         <div className="col-md-4">
-                            <Mute />
+                            <canvas id="roll" className="w-100"></canvas>
                         </div>
                     </div>
                 </div>
-                <canvas id="roll"></canvas>
-            </main >
-        </div >
+            </main>
+        </div>
     );
 }
