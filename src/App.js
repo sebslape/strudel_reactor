@@ -78,11 +78,11 @@ export default function StrudelDemo() {
                         <div className="col-md-4">
                             <h3 className="form-label text-white">Control Panel</h3>
                             <Accordion title={"Tempo"}>
-                                <label for="bpm" className="text-white me-2">BPM</label>
+                                <label htmlFor="bpm" className="text-white me-2">BPM</label>
                                 <input type="text" id="bpm" defaultValue={"140/60/4"} onInput={() => ProcAndPlay(globalEditor)}></input>
                             </Accordion>
                             <Accordion title={"Muting"}>
-                                <Mute />
+                                
                             </Accordion>
                         </div>
                     </div>

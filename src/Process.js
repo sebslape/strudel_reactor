@@ -1,9 +1,51 @@
+import React from "react";
+import { createRoot } from "react-dom/client";
+import Mute from "./components/Mute";
+
+let mutingRoot = null;
+
 export function Proc(globalEditor) {
+    let MutingSection = document.querySelector("*[title='Muting'] > div");
     let proc_text = document.getElementById('proc').value;
-    let proc_text_replaced = proc_text.replaceAll('<p1_Radio>', ProcessText);
-    //ProcessText(proc_text);
-    proc_text_replaced = ProcessBPM(proc_text_replaced);
-    globalEditor.setCode(proc_text_replaced);
+    const InstrumentRegex = /\n\w+:/g;
+
+    let instruments = proc_text.match(InstrumentRegex);
+
+    if (mutingRoot == null) {
+        mutingRoot = createRoot(MutingSection);
+    }
+
+    let muteArray = [];
+
+    let instrumentNames = [];
+
+    // Add the mute components to the muteArray
+    instruments.forEach(instrument => {
+        let instrumentName = instrument.trim().replace(":","");
+
+        // Add the instrument name to the instrumentNames array
+        instrumentNames.push(instrumentName);
+
+        // Create the Mute object with the instrument name, globalEditor, and unique key
+        muteArray.push(<Mute key={instrumentName} globalEditor={globalEditor} instrument={instrumentName} />);
+    });
+
+    mutingRoot.render(muteArray);
+
+    instrumentNames.forEach(instrument => {
+        const element = document.getElementById(instrument + "Off");
+        if (element) {
+            if (element.checked) {
+                console.log("checked: " + element.checked)
+                console.log(instrument + ":")
+                proc_text = proc_text.replace(instrument + ":", "_" + instrument + ":");
+            }
+        }
+    });
+
+    console.log(proc_text);
+    proc_text = ProcessBPM(proc_text);
+    globalEditor.setCode(proc_text);
 }
 
 export function ProcAndPlay(globalEditor) {
