@@ -7,9 +7,27 @@ let mutingRoot = null;
 let patternRoot = null;
 
 export function Proc(globalEditor) {
-    let MutingSection = document.querySelector("*[title='Muting'] > div");
     let proc_text = document.getElementById('proc').value;
-    const InstrumentRegex = /\n\w+:/g;
+    
+    proc_text = ProcessMuting(proc_text, globalEditor);
+    proc_text = ProcessBPM(proc_text);
+    proc_text = GetPatterns(proc_text, globalEditor);
+
+    console.warn(proc_text);
+
+    globalEditor.setCode(proc_text);
+}
+
+export function ProcAndPlay(globalEditor) {
+    if (globalEditor != null && globalEditor.repl.state.started == true) {
+        Proc(globalEditor);
+        globalEditor.evaluate();
+    }
+}
+
+function ProcessMuting(proc_text, globalEditor) {
+    let MutingSection = document.querySelector("*[title='Muting'] > div");
+    const InstrumentRegex = /^\w+:/mg;
 
     let instruments = proc_text.match(InstrumentRegex);
 
@@ -38,33 +56,26 @@ export function Proc(globalEditor) {
         const element = document.getElementById(instrument + "Off");
         if (element) {
             if (element.checked) {
-                proc_text = proc_text.replace(instrument + ":", "_" + instrument + ":");
+                const instrumentRegex = new RegExp(`^${instrument}:`, "m");
+                proc_text = proc_text.replace(instrumentRegex, "_" + instrument + ":");
             }
         }
     });
 
-    proc_text = ProcessBPM(proc_text);
-    proc_text = GetPatterns(proc_text);
-
-    console.warn(proc_text);
-
-    globalEditor.setCode(proc_text);
-}
-
-export function ProcAndPlay(globalEditor) {
-    if (globalEditor != null && globalEditor.repl.state.started == true) {
-        Proc(globalEditor);
-        globalEditor.evaluate();
-    }
+    return proc_text
 }
 
 function ProcessBPM(proc_text) {
-    // Regex to locate setcps
-    const BPMRegex = /setcps\(.*\)/i;
+    // Regex to locate setcps and setcpm
+    const CPSRegex = /setcps\(.*\)/gi;
+    const CPMRegex = /setcpm\(.*\)/gi;
     const BPMValue = document.getElementById('bpm').value;
 
     // Replace setcps with bpm input value
-    let proc_text_replaced = proc_text.replace(BPMRegex, "setcps(" + BPMValue + ")");
+    let proc_text_replaced = proc_text.replace(CPSRegex, "setcps(" + BPMValue + ")");   
+
+    // Replace setcpm with bpm input value
+    proc_text_replaced = proc_text.replace(CPMRegex, "setcpm(" + BPMValue + ")");
     return proc_text_replaced;
 }
 
@@ -99,7 +110,7 @@ function GetPatterns(proc_text, globalEditor) {
     patternRoot.render(patternArray);
 
     patternNames.forEach(patternName => {
-        const patternChecked = document.querySelector(`input[name="${patternName}"]:checked`);
+        const patternChecked = document.querySelector(`input[name="${patternName + "Pattern"}"]:checked`);
 
         console.log(patternChecked.value);
 

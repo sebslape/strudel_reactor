@@ -9,7 +9,7 @@ const Pattern = ({ patternName, choices, globalEditor }) => {
         if (first) {
             choicesHTML.push (
                 <div className="form-check" key={choice}>
-                    <input className="form-check-input" type="radio" name={patternName} id={patternName + choice.toString()} value={choice} onChange={() => ProcAndPlay(globalEditor)} defaultChecked />
+                    <input className="form-check-input" type="radio" name={patternName + "Pattern"} id={patternName + choice.toString()} value={choice} onChange={() => ProcAndPlay(globalEditor)} defaultChecked />
                     <label className="form-check-label text-white" htmlFor={patternName + choice.toString()}>
                         {patternName}: {choice}
                     </label>
@@ -19,7 +19,7 @@ const Pattern = ({ patternName, choices, globalEditor }) => {
         } else {
             choicesHTML.push (
                 <div className="form-check" key={choice}>
-                    <input className="form-check-input" type="radio" name={patternName} id={patternName + choice.toString()} value={choice} onChange={() => ProcAndPlay(globalEditor)} />
+                    <input className="form-check-input" type="radio" name={patternName + "Pattern"} id={patternName + choice.toString()} value={choice} onChange={() => ProcAndPlay(globalEditor)} />
                     <label className="form-check-label text-white" htmlFor={patternName + choice.toString()}>
                         {patternName}: {choice}
                     </label>

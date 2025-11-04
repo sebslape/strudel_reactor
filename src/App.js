@@ -9,7 +9,6 @@ import { getAudioContext, webaudioOutput, registerSynthSounds } from '@strudel/w
 import { registerSoundfonts } from '@strudel/soundfonts';
 import { stranger_tune } from './tunes';
 import console_monkey_patch, { getD3Data } from './console-monkey-patch';
-import Mute from './components/Mute';
 import { Proc, ProcAndPlay } from './Process';
 import Button from './components/Button';
 import Accordion from './components/Accordion';
@@ -68,7 +67,7 @@ export default function StrudelDemo() {
                 <Button action={() => globalEditor.evaluate()}>Play</Button>
                 <Button action={() => globalEditor.stop()}>Stop</Button>
             </div>
-            <main className="px-4 pt-4" style={{backgroundColor: "#3A3A3A"}}>
+            <main className="px-4 pt-4">
                 <div className="container-fluid">
                     <div className="row mb-2">
                         <div className="col-md-8 p-0">
@@ -81,12 +80,8 @@ export default function StrudelDemo() {
                                 <label htmlFor="bpm" className="text-white me-2">BPM</label>
                                 <input type="text" id="bpm" defaultValue={"140/60/4"} onInput={() => ProcAndPlay(globalEditor)}></input>
                             </Accordion>
-                            <Accordion title={"Muting"}>
-                                
-                            </Accordion>
-                            <Accordion title={"Patterns"}>
-                                
-                            </Accordion>
+                            <Accordion title={"Muting"}></Accordion>
+                            <Accordion title={"Patterns"}></Accordion>
                         </div>
                     </div>
                     <div className="row">
