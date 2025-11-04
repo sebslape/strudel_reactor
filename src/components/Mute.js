@@ -8,13 +8,13 @@ const Mute = ({ instrument, globalEditor }) => {
         <div>
             <div className="form-check">
                 <input className="form-check-input" type="radio" name={instrument} id={instrument + "On"} onChange={() => ProcAndPlay(globalEditor)} defaultChecked />
-                <label className="form-check-label text-white" htmlFor="flexRadioDefault1">
+                <label className="form-check-label text-white" htmlFor={instrument + "On"}>
                     {instrument}: ON
                 </label>
             </div>
             <div className="form-check">
                 <input className="form-check-input" type="radio" name={instrument} id={instrument + "Off"} onChange={() => ProcAndPlay(globalEditor)} />
-                <label className="form-check-label text-white" htmlFor="flexRadioDefault2">
+                <label className="form-check-label text-white" htmlFor={instrument + "Off"}>
                     {instrument}: HUSH
                 </label>
             </div>

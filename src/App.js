@@ -70,10 +70,10 @@ export default function StrudelDemo() {
             </div>
             <main className="px-4 pt-4" style={{backgroundColor: "#3A3A3A"}}>
                 <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-md-8 p-0" style={{ maxHeight: '50vh'}}>
+                    <div className="row mb-2">
+                        <div className="col-md-8 p-0">
                             <h3 className="form-label text-white">Text to Preprocess:</h3>
-                            <textarea className="form-control text-white" rows="15" id="proc" style={{resize: "none", backgroundColor: "#222"}}></textarea>
+                            <textarea className="form-control text-white" rows="15" id="proc" style={{resize: "none", backgroundColor: "#222", overflowY: "auto", maxHeight: '40vh', border: 'none', outline: '0'}}></textarea>
                         </div>
                         <div className="col-md-4">
                             <h3 className="form-label text-white">Control Panel</h3>
@@ -84,10 +84,13 @@ export default function StrudelDemo() {
                             <Accordion title={"Muting"}>
                                 
                             </Accordion>
+                            <Accordion title={"Patterns"}>
+                                
+                            </Accordion>
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-8 p-0" style={{ maxHeight: '42vh', overflowY: 'auto' }}>
+                        <div className="col-md-8 p-0" style={{ maxHeight: '40vh', overflowY: 'auto' }}>
                             <div id="editor" />
                             <div id="output" />
                         </div>
