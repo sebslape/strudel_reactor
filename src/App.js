@@ -68,30 +68,22 @@ export default function StrudelDemo() {
                 <Button action={() => globalEditor.stop()}>Stop</Button>
             </div>
             <main className="px-4 pt-4">
-                <div className="container-fluid">
-                    <div className="row mb-2">
-                        <div className="col-md-8 p-0">
-                            <h3 className="form-label text-white">Text to Preprocess:</h3>
-                            <textarea className="form-control text-white" rows="15" id="proc" style={{resize: "none", backgroundColor: "#222", overflowY: "auto", maxHeight: '40vh', border: 'none', outline: '0'}}></textarea>
-                        </div>
-                        <div className="col-md-4">
-                            <h3 className="form-label text-white">Control Panel</h3>
-                            <Accordion title={"Tempo"}>
-                                <label htmlFor="bpm" className="text-white me-2">BPM</label>
-                                <input type="text" id="bpm" defaultValue={"140/60/4"} onInput={() => ProcAndPlay(globalEditor)}></input>
-                            </Accordion>
-                            <Accordion title={"Muting"}></Accordion>
-                            <Accordion title={"Patterns"}></Accordion>
-                        </div>
+                <div className="container-fluid row">
+                    <div className="col-md-8 p-0">
+                        <h3 className="form-label text-white">Text to Preprocess:</h3>
+                        <textarea className="form-control text-white mb-2" rows="15" id="proc" style={{resize: "none", backgroundColor: "#222", overflowY: "auto", maxHeight: "40vh", border: "none", outline: "0"}}></textarea>
+                        <div id="editor" style={{overflowY: "auto", maxHeight: "40vh", borderRadius: "6px"}} />
+                        <div id="output" />
                     </div>
-                    <div className="row">
-                        <div className="col-md-8 p-0" style={{ maxHeight: '40vh', overflowY: 'auto' }}>
-                            <div id="editor" />
-                            <div id="output" />
-                        </div>
-                        <div className="col-md-4">
-                            <canvas id="roll" className="w-100"></canvas>
-                        </div>
+                    <div className="col-md-4">
+                        <h3 className="form-label text-white">Control Panel</h3>
+                        <Accordion title={"Tempo"}>
+                            <label htmlFor="bpm" className="text-white me-2">BPM</label>
+                            <input type="text" id="bpm" defaultValue={"140/60/4"} onInput={() => ProcAndPlay(globalEditor)}></input>
+                        </Accordion>
+                        <Accordion title={"Muting"}></Accordion>
+                        <Accordion title={"Patterns"}></Accordion>
+                        <canvas id="roll" className="w-100"></canvas>
                     </div>
                 </div>
             </main>
