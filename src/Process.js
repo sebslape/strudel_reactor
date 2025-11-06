@@ -118,9 +118,14 @@ function GetPatterns(proc_text, globalEditor) {
     patternNames.forEach(patternName => {
         const patternChecked = document.querySelector(`input[name="${patternName + "Pattern"}"]:checked`);
 
+        // If the component is found, replace the pattern with the component's value
+        // Otherwise, set it to a 0 as default
         if (patternChecked) {
             const specificPatternRegex = new RegExp(`<pattern>${patternName}.+</pattern>`, "g");
             proc_text = proc_text.replace(specificPatternRegex, patternChecked.value);
+        } else {
+            const specificPatternRegex = new RegExp(`<pattern>${patternName}.+</pattern>`, "g");
+            proc_text = proc_text.replace(specificPatternRegex, 0);
         }
     });
 
