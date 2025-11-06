@@ -36,8 +36,8 @@ const arpeggiator2 = [
 ]
 
 
-const pattern = 0
-const bass = 0
+const pattern = <pattern>Kick Pattern:0:1</pattern>
+const bass = <pattern>Bass Pattern:0:1</pattern>
 
 bassline:
 note(pick(basslines, bass))
