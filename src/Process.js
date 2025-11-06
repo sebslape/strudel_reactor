@@ -33,12 +33,13 @@ function ProcessMuting(proc_text, globalEditor) {
 
     let instruments = proc_text.match(InstrumentRegex);
 
-    if (instruments == null) {
-        return proc_text;
-    }
-
     if (mutingRoot == null) {
         mutingRoot = createRoot(MutingSection);
+    }
+
+    if (instruments == null) {
+        mutingRoot.render(null);
+        return proc_text;
     }
 
     let muteArray = [];
@@ -93,12 +94,13 @@ function GetPatterns(proc_text, globalEditor) {
 
     let patterns = proc_text.match(PatternRegex);
 
-    if (patterns == null) {
-        return proc_text;
-    }
-
     if (patternRoot == null) {
         patternRoot = createRoot(PatternsSection);
+    }
+
+    if (patterns == null) {
+        patternRoot.render(null);
+        return proc_text;
     }
 
     let patternArray = [];
