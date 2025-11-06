@@ -22,6 +22,8 @@ export function ProcAndPlay(globalEditor) {
     if (globalEditor != null && globalEditor.repl.state.started == true) {
         Proc(globalEditor);
         globalEditor.evaluate();
+    } else if (globalEditor != null) {
+        Proc(globalEditor);
     }
 }
 
