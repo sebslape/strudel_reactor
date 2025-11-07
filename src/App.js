@@ -74,17 +74,19 @@ export default function StrudelDemo() {
             </div>
             <main className="px-4 pt-4">
                 <div className="container-fluid row">
-                    <div className="col-md-8 p-0">
+                    <div className="col-md-6 p-0">
                         <h3 className="form-label text-white">Text to Preprocess:</h3>
                         <textarea className="form-control text-white mb-2" rows="15" id="proc" style={{resize: "none", backgroundColor: "#222", overflowY: "auto", maxHeight: "40vh", border: "none", outline: "0"}}></textarea>
                         <div id="editor" style={{overflowY: "auto", maxHeight: "40vh", borderRadius: "6px"}} />
                         <div id="output" />
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-6">
                         <h3 className="form-label text-white">Control Panel</h3>
                         <Accordion title={"Tempo"}>
-                            <label htmlFor="bpm" className="text-white me-2">BPM</label>
-                            <input type="text" id="bpm" defaultValue={"140/60/4"} onInput={() => ProcAndPlay(globalEditor)}></input>
+                            <div>
+                                <label htmlFor="bpm" className="text-white me-2">BPM</label>
+                                <input type="text" id="bpm" defaultValue={"140/60/4"} onInput={() => ProcAndPlay(globalEditor)}></input>
+                            </div>
                         </Accordion>
                         <Accordion title={"Muting"}></Accordion>
                         <Accordion title={"Patterns"}></Accordion>

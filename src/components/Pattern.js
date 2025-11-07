@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ProcAndPlay } from '../Process';
 
+// A pattern that can contain many different specified values that the user can choose from
 const Pattern = ({ patternName, choices, globalEditor }) => {
     let choicesHTML = [];
 
@@ -25,8 +26,7 @@ const Pattern = ({ patternName, choices, globalEditor }) => {
                     </label>
                 </div>
             )
-        } 
-        
+        }
     });
 
     return (

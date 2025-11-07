@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
+// A simple button which contains an action and text/children
 const Button = ({action, children}) => {
     return (
         <div>

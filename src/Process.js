@@ -6,6 +6,7 @@ import Pattern from "./components/Pattern";
 let mutingRoot = null;
 let patternRoot = null;
 
+// Gets the processing text and adds controls
 export function Proc(globalEditor) {
     let proc_text = document.getElementById('proc').value;
     
@@ -60,9 +61,9 @@ function ProcessMuting(proc_text, globalEditor) {
     mutingRoot.render(muteArray);
 
     instrumentNames.forEach(instrument => {
-        const element = document.getElementById(instrument + "Off");
+        const element = document.querySelector(`#${instrument}Mute`);
         if (element) {
-            if (element.checked) {
+            if (element.getAttribute("ismuted") == "true") {
                 const instrumentRegex = new RegExp(`^${instrument}:`, "m");
                 proc_text = proc_text.replace(instrumentRegex, "_" + instrument + ":");
             }
