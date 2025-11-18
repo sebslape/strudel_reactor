@@ -13,7 +13,7 @@ import { Proc, ProcAndPlay } from './Process';
 import Button from './components/Button';
 import Accordion from './components/Accordion';
 import handleD3Data from './D3';
-import { uploadJson, downloadJson } from './JsonUtils';
+import { loadJson, downloadJson } from './JsonUtils';
 
 export default function StrudelDemo() {
     const hasRun = useRef(false);
@@ -74,12 +74,12 @@ export default function StrudelDemo() {
                 </Button>
             </div>
             <div className="navbar bg-dark p-2 text-center justify-content-center gap-2">
-                <Button action={() => globalEditor.evaluate()}>
-                    Load Json
+                <Button action={() => loadJson()}>
+                    Load Json Settings
                 </Button>
                 <input type="file" className="form-control" style={{maxWidth: "400px"}} id="fileInput" accept=".json"></input>
                 <Button action={() => downloadJson()}>
-                    Download Json
+                    Download Json Settings
                 </Button>
             </div>
             <main className="px-4 pt-4">
