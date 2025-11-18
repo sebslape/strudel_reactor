@@ -61,6 +61,20 @@ function getJson() {
 }
 
 export function downloadJson() {
-    let json = getJson();
-    console.log(json);
-} 
+    const json = getJson();
+    const jsonString = JSON.stringify(json, null, 2);
+    const blob = new Blob([jsonString], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    // Create temporary a tag to trigger download
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "strudelsettings.json";
+    document.body.appendChild(a);
+
+    a.click();
+
+    // Remove a tag and revoke url
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
