@@ -12,7 +12,7 @@ import console_monkey_patch, { getD3Data } from './console-monkey-patch';
 import { Proc, ProcAndPlay } from './Process';
 import Button from './components/Button';
 import Accordion from './components/Accordion';
-import handleD3Data from './D3';
+import { handleD3Data, Graph } from './D3';
 import { loadJson, downloadJson } from './JsonUtils';
 
 export default function StrudelDemo() {
@@ -105,6 +105,7 @@ export default function StrudelDemo() {
                     <div className="col-md-4">
                         <h3 className="form-label text-white">Pianoroll and D3 Graph</h3>
                         <canvas id="roll" className="w-100"></canvas>
+                        <Graph></Graph>
                     </div>
                 </div>
             </main>
