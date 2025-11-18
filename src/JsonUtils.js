@@ -1,7 +1,7 @@
 function getJson() {
     let proc_text = document.getElementById('proc').value;
 
-    let bpm = document.getElementById("bpm").value
+    let bpm = document.getElementById("bpm").value;
     let muting = {};
     let patterns = {};
     let sliders = {};
@@ -26,8 +26,11 @@ function getJson() {
             const patternName = patternInfo[0];
             const choices = patternInfo.slice(1);
 
-            patterns[patternName] = {
+            const patternChecked = document.querySelector(`input[name="${patternName + "Pattern"}"]:checked`);
+
+            patterns[patternName + "Pattern"] = {
                 "choices": choices,
+                "value": patternChecked.value,
             }
         });
     }    
@@ -43,9 +46,12 @@ function getJson() {
             const sliderName = sliderInfo[0];
             const attributes = sliderInfo.slice(1);
 
-            sliders[sliderName] = {
+            const sliderObject = document.querySelector(`input[name="${sliderName + "Slider"}"]`);
+
+            sliders[sliderName + "Slider"] = {
                 "min": attributes[0],
                 "max": attributes[1],
+                "value": sliderObject.value,
             }
         });
     }
