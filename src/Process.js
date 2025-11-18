@@ -37,6 +37,14 @@ export function ProcessJson(json, globalEditor) {
     const PatternsSection = document.querySelector("*[title='Patterns'] > div");
     const SlidersSection = document.querySelector("*[title='Sliders'] > div");
 
+    mutingRoot.unmount();
+    patternRoot.unmount();
+    sliderRoot.unmount();
+
+    mutingRoot = null;
+    patternRoot = null;
+    sliderRoot = null;
+
     if (mutingRoot == null) {
         mutingRoot = createRoot(MutingSection);
     }
@@ -58,7 +66,6 @@ export function ProcessJson(json, globalEditor) {
         muteArray.push(<Mute key={mute} globalEditor={globalEditor} instrument={mute} />);
     }
 
-    console.log(muteArray);
     mutingRoot.render(muteArray);
 
     let patternsJson = json["patterns"];
@@ -133,8 +140,6 @@ function ProcessBPM(proc_text) {
     const CPSRegex = /setcps\(.*\)/gi;
     const CPMRegex = /setcpm\(.*\)/gi;
     const BPMValue = document.getElementById('bpm').value;
-
-    console.log()
 
     // Replace setcps with bpm input value
     let proc_text_replaced = proc_text.replace(CPSRegex, "setcps(" + BPMValue + ")");   
@@ -222,8 +227,6 @@ function GetSliders(proc_text, globalEditor) {
     });
 
     sliderRoot.render(sliderArray);
-
-    console.log(sliderNames);
 
     sliderNames.forEach(sliderName => {
         const slider = document.querySelector(`input[name="${sliderName + "Slider"}"]`);
