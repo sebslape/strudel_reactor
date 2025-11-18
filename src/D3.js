@@ -3,6 +3,7 @@ import * as d3 from "d3";
 
 const gainEventTarget = new EventTarget();
 
+// Handles the d3 data and sends it to the graph
 export function handleD3Data(event) {
     let detail = event.detail;
 
@@ -19,6 +20,7 @@ export function handleD3Data(event) {
     }
 }
 
+// A d3 graph which visualises the current gain of the track
 export function Graph() {
     const [currentGain, setCurrentGain] = useState(0);
     const [gainArray, setGainArray] = useState([]);
