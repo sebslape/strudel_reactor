@@ -2,12 +2,15 @@ import React from 'react';
 import { ProcAndPlay } from '../Process';
 
 // A pattern that can contain many different specified values that the user can choose from
-const Pattern = ({ patternName, choices, globalEditor }) => {
+const Pattern = ({ patternName, choices, globalEditor, setChoice=null }) => {
     let choicesHTML = [];
 
-    let first = true;
+    if (setChoice == null) {
+        setChoice = choices[0];
+    }
+
     choices.forEach(choice => {
-        if (first) {
+        if (choice == setChoice) {
             choicesHTML.push (
                 <div className="form-check" key={choice}>
                     <input className="form-check-input" type="radio" name={patternName + "Pattern"} id={patternName + choice.toString()} value={choice} onChange={() => ProcAndPlay(globalEditor)} defaultChecked />
@@ -16,7 +19,6 @@ const Pattern = ({ patternName, choices, globalEditor }) => {
                     </label>
                 </div>
             )
-            first = false;
         } else {
             choicesHTML.push (
                 <div className="form-check" key={choice}>

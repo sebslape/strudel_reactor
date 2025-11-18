@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ProcAndPlay } from '../Process';
 
 // A toggle button that can mute and unmute an instrument
-const Mute = ({ instrument, globalEditor }) => {
-    const [isMuted, setState] = useState(false);
+const Mute = ({ instrument, globalEditor, ismuted=false }) => {
+    const [isMuted, setState] = useState(ismuted);
 
     const onClick = () => {
         setState(!isMuted);

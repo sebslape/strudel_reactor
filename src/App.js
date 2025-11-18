@@ -74,7 +74,7 @@ export default function StrudelDemo() {
                 </Button>
             </div>
             <div className="navbar bg-dark p-2 text-center justify-content-center gap-2">
-                <Button action={() => loadJson()}>
+                <Button action={() => loadJson(globalEditor)}>
                     Load Json Settings
                 </Button>
                 <input type="file" className="form-control" style={{maxWidth: "400px"}} id="fileInput" accept=".json"></input>

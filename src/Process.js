@@ -31,6 +31,58 @@ export function ProcAndPlay(globalEditor) {
     }
 }
 
+export function ProcessJson(json, globalEditor) {
+    console.log("dsadasdasasdahjas");
+    const MutingSection = document.querySelector("*[title='Muting'] > div");
+    const PatternsSection = document.querySelector("*[title='Patterns'] > div");
+    const SlidersSection = document.querySelector("*[title='Sliders'] > div");
+
+    if (mutingRoot == null) {
+        mutingRoot = createRoot(MutingSection);
+    }
+    
+    if (patternRoot == null) {
+        patternRoot = createRoot(PatternsSection);
+    }
+
+    if (sliderRoot == null) {
+        sliderRoot = createRoot(SlidersSection);
+    }
+
+    document.getElementById("bpm").value = json["bpm"];
+    
+    let mutingJson = json["muting"];
+    let muteArray = [];
+
+    for (const mute in mutingJson) {
+        muteArray.push(<Mute key={mute} globalEditor={globalEditor} instrument={mute} />);
+    }
+
+    console.log(muteArray);
+    mutingRoot.render(muteArray);
+
+    let patternsJson = json["patterns"];
+    let patternArray = [];
+
+    for (const pattern in patternsJson) {
+        console.log(patternsJson[pattern]);
+        patternArray.push(<Pattern key={pattern} patternName={pattern} choices={patternsJson[pattern]["choices"]} choice={patternsJson[pattern]["value"]} globalEditor={globalEditor} />);
+    }
+
+    console.log(patternArray);
+    patternRoot.render(patternArray);
+
+    let slidersJson = json["sliders"];
+    let sliderArray = [];
+
+    for (const slider in slidersJson) {
+        sliderArray.push(<Slider key={slider} sliderName={slider} min={slidersJson[slider]["min"]} max={slidersJson[slider]["max"]} value={slidersJson[slider]["value"]} globalEditor={globalEditor} />);
+    }
+
+    console.log(sliderArray);
+    sliderRoot.render(sliderArray);
+}
+
 function ProcessMuting(proc_text, globalEditor) {
     let MutingSection = document.querySelector("*[title='Muting'] > div");
     const InstrumentRegex = /^\w+:/mg;

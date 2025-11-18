@@ -1,3 +1,5 @@
+import { ProcessJson } from "./Process";
+
 function getJson() {
     let proc_text = document.getElementById('proc').value;
 
@@ -66,13 +68,8 @@ function getJson() {
     return json;
 }
 
-function applyJson(json) {
-    
-}
-
 export function downloadJson() {
     const json = getJson();
-    console.warn(json);
     const jsonString = JSON.stringify(json, null, 2);
     const blob = new Blob([jsonString], { type: "application/json" });
     const url = URL.createObjectURL(blob);
@@ -90,7 +87,7 @@ export function downloadJson() {
     URL.revokeObjectURL(url);
 }
 
-export function loadJson() {
+export function loadJson(globalEditor) {
     const fileInput = document.getElementById("fileInput");
 
     if (fileInput.files.length == 0) {
@@ -104,7 +101,7 @@ export function loadJson() {
     reader.onload = (event) => {
         try {
             const jsonData = JSON.parse(event.target.result);
-            applyJson(jsonData);
+            ProcessJson(jsonData, globalEditor);
         } catch (error) {
             console.error(error);
         }
