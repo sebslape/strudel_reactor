@@ -2,9 +2,11 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import Mute from "./components/Mute";
 import Pattern from "./components/Pattern";
+import Slider from "./components/Slider";
 
 let mutingRoot = null;
 let patternRoot = null;
+let sliderRoot = null;
 
 // Gets the processing text and adds controls
 export function Proc(globalEditor) {
@@ -13,6 +15,7 @@ export function Proc(globalEditor) {
     proc_text = ProcessMuting(proc_text, globalEditor);
     proc_text = ProcessBPM(proc_text);
     proc_text = GetPatterns(proc_text, globalEditor);
+    proc_text = GetSliders(proc_text, globalEditor);
 
     console.warn(proc_text);
 
@@ -131,6 +134,56 @@ function GetPatterns(proc_text, globalEditor) {
         } else {
             const specificPatternRegex = new RegExp(`<pattern>${patternName}.+</pattern>`, "g");
             proc_text = proc_text.replace(specificPatternRegex, 0);
+        }
+    });
+
+    return proc_text;
+}
+
+function GetSliders(proc_text, globalEditor) {
+    const SlidersSection = document.querySelector("*[title='Sliders'] > div");
+    const SliderRegex = /<slider>.+<\/slider>/g;
+
+    let sliders = proc_text.match(SliderRegex);
+
+    if (sliderRoot == null) {
+        sliderRoot = createRoot(SlidersSection);
+    }
+
+    if (sliders == null) {
+        patternRoot.render(null);
+        return proc_text;
+    }
+
+    let sliderArray = [];
+    let sliderNames = [];
+
+    sliders.forEach(slider => {
+        let sliderInfo = slider.replace("<slider>","").replace("</slider>","").split(":");
+
+        const sliderName = sliderInfo[0];
+        const attributes = sliderInfo.slice(1);
+
+        sliderNames.push(sliderName);
+
+        sliderArray.push(<Slider key={sliderName} sliderName={sliderName} min={attributes[0]} max={attributes[1]} globalEditor={globalEditor} />);
+    });
+
+    sliderRoot.render(sliderArray);
+
+    console.log(sliderNames);
+
+    sliderNames.forEach(sliderName => {
+        const slider = document.querySelector(`input[name="${sliderName + "Slider"}"]`);
+
+        // If the component is found, replace the slider with the component's value
+        // Otherwise, set it to a 0 as default
+        if (slider) {
+            const specificSliderRegex = new RegExp(`<slider>${sliderName}.+</slider>`, "g");
+            proc_text = proc_text.replace(specificSliderRegex, slider.value);
+        } else {
+            const specificSliderRegex = new RegExp(`<slider>${sliderName}.+</slider>`, "g");
+            proc_text = proc_text.replace(specificSliderRegex, 0);
         }
     });
 
