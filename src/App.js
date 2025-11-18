@@ -90,6 +90,7 @@ export default function StrudelDemo() {
                         </Accordion>
                         <Accordion title={"Muting"}></Accordion>
                         <Accordion title={"Patterns"}></Accordion>
+                        <Accordion title={"Sliders"}></Accordion>
                         <canvas id="roll" className="w-100"></canvas>
                     </div>
                 </div>
