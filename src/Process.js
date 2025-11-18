@@ -151,7 +151,7 @@ function GetSliders(proc_text, globalEditor) {
     }
 
     if (sliders == null) {
-        patternRoot.render(null);
+        sliderRoot.render(null);
         return proc_text;
     }
 

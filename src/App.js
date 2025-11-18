@@ -13,6 +13,7 @@ import { Proc, ProcAndPlay } from './Process';
 import Button from './components/Button';
 import Accordion from './components/Accordion';
 import handleD3Data from './D3';
+import { uploadJson, downloadJson } from './JsonUtils';
 
 export default function StrudelDemo() {
     const hasRun = useRef(false);
@@ -72,15 +73,24 @@ export default function StrudelDemo() {
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M6 18V6h12v12z"/></svg>
                 </Button>
             </div>
+            <div className="navbar bg-dark p-2 text-center justify-content-center gap-2">
+                <Button action={() => globalEditor.evaluate()}>
+                    Load Json
+                </Button>
+                <input type="file" className="form-control" style={{maxWidth: "400px"}} id="fileInput" accept=".json"></input>
+                <Button action={() => downloadJson()}>
+                    Download Json
+                </Button>
+            </div>
             <main className="px-4 pt-4">
                 <div className="container-fluid row">
-                    <div className="col-md-6 p-0">
+                    <div className="col-md-4 p-0">
                         <h3 className="form-label text-white">Text to Preprocess:</h3>
                         <textarea className="form-control text-white mb-2" rows="15" id="proc" style={{resize: "none", backgroundColor: "#222", overflowY: "auto", maxHeight: "40vh", border: "none", outline: "0"}}></textarea>
                         <div id="editor" style={{overflowY: "auto", maxHeight: "40vh", borderRadius: "6px"}} />
                         <div id="output" />
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                         <h3 className="form-label text-white">Control Panel</h3>
                         <Accordion title={"Tempo"}>
                             <div>
@@ -91,6 +101,9 @@ export default function StrudelDemo() {
                         <Accordion title={"Muting"}></Accordion>
                         <Accordion title={"Patterns"}></Accordion>
                         <Accordion title={"Sliders"}></Accordion>
+                    </div>
+                    <div className="col-md-4">
+                        <h3 className="form-label text-white">Pianoroll and D3 Graph</h3>
                         <canvas id="roll" className="w-100"></canvas>
                     </div>
                 </div>
