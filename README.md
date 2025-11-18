@@ -8,6 +8,6 @@ To specify a pattern, use the format `<pattern>[Name]:[Option 1]:[Option 2]</pat
 To specify a slider, use the format `<slider>[Name]:[Minimum Value]:[Maximum Value]</slider>`, separating each option with a colon.
 
 ## Installation
-To install the project, go into the src folder, and write `npm install`. This will install all of the necessary packages required to run the program.
+To install the project, go into the top folder, and write `npm install`. This will install all of the necessary packages required to run the program.
 
-To run the project, type `npm start`.
+After installing the project, to run the project, type `npm start`.
