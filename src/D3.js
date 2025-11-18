@@ -12,11 +12,15 @@ export function handleD3Data(event) {
         let GainRegex = /gain:(\d+(\.\d+)?)/;
         let gain = chosenLine.match(GainRegex);
 
-        let currentGain = gain[1];
+        if (gain != null) {
+            if (gain.length > 1) {
+                let currentGain = gain[1];
 
-        gainEventTarget.dispatchEvent(new CustomEvent('gainChange', {
-            detail: currentGain
-        }));
+                gainEventTarget.dispatchEvent(new CustomEvent('gainChange', {
+                    detail: currentGain
+                }));
+            }
+        }
     }
 }
 
